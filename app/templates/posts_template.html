@@ -23,7 +23,7 @@
                                                 </a>
                                                 <h2 class = "username-title">{{ post_data.username }}</h2>
                                             </div>
-                                            {% if post_data.user_id == current_user.id %}
+                                            {% if post_data.user_id == current_user.id and profile != True %}
                                                 <div class="username-right">
 
                                                     <form action="{{ url_for('edit_post', post_id=post_id) }}" method="POST">
