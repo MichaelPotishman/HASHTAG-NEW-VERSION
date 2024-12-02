@@ -310,7 +310,7 @@ input[type="text"]:focus {
 
 
 
-.left-button{
+.left-button, .dropdown-button{
     padding: 0.5rem, 1rem;
     display: flex;
     justify-content: center;
@@ -321,6 +321,7 @@ input[type="text"]:focus {
     font-size: 0.875rem;
     border-radius: 0.5rem;
     transition: color 0.2s;
+    cursor: pointer;
 }
 
 .left-button:hover{
@@ -417,6 +418,58 @@ i, span{
     object-fit: cover;
     border: 2px solid #e5e7eb;
 }
+
+.dropdown-container {
+    position: relative;
+}
+
+
+.dropdown-button i {
+    margin-right: 5px;
+}
+
+#dropdown-menu{
+    display: none;
+}
+
+#dropdown-menu.active{
+    display: block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    transform: translateX(-80%);
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 10px;
+    min-width: 200px;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+    display: block;
+    padding: 8px 15px;
+    text-align: left;
+    text-decoration: none;
+    color: black;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.dropdown-container:hover .dropdown-menu {
+    display: block;
+}
+
 
 
 

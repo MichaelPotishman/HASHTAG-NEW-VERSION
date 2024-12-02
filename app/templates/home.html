@@ -24,7 +24,7 @@
     
                         <div class="form-group">
                             <label for="password"></label>
-                            {{ form.password(class="form-control", id="password", placeholder = "Password") }}
+                            {{ form.password(class="form-control", id="password", placeholder = "Password", type="password") }}
                             {% if form.password.errors %}
                                 <div class="alert alert-danger" role="alert">
                                     {% for error in form.password.errors %}

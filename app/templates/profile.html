@@ -8,24 +8,23 @@
             <i class="fas fa-arrow-left"></i>
         </button>
         {% if user.id == current_user.id %}
-        <div class="more-right-buttons">
-            <a href="{{ url_for('edit_user', user_id=current_user.id) }}" class="delete-button">
-                <button type="button" class="delete-button">
-                    <i class="fas fa-user-edit"></i>
+        <div class="dropdown-container">
+            <button class="dropdown-button" id = "dropdown-toggle">
+                <i class="fas fa-cog"></i> 
+            </button>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="{{ url_for('edit_user', user_id=current_user.id) }}" class="dropdown-item">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </a>
+                <button class="dropdown-item" id="logout-open-modal-btn">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
                 </button>
-            </a>
-
-            <!-- LOGOUT MODAL (REF LATER) -->
-            <button class="delete-button" id="logout-open-modal-btn">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
-
-            <!-- DELETE ACCOUNT MODAL -->
-            <button class="delete-button" id="open-modal-btn">
-                <i class="fas fa-user-times"></i>
-            </button>
-            
+                <button class="dropdown-item" id="open-modal-btn">
+                    <i class="fas fa-user-times"></i> Delete Account
+                </button>
+            </div>
         </div>
+
         <div class="account-modal-container">
             <div id="account-confirmation-modal" class="account-modal">
                 <h2>Are you sure you want to delete your account?</h2>

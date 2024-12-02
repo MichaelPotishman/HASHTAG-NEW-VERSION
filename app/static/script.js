@@ -313,6 +313,17 @@ $(document).ready(function() {
             
         });
     });
+
+    const dropdowntoggle = document.getElementById('dropdown-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    dropdowntoggle.addEventListener('click', function(event) {
+        if (dropdownMenu.classList.contains('active')) {
+            dropdownMenu.classList.remove('active');
+        } else {
+            dropdownMenu.classList.add('active');
+        }
+    })
 });
 
 
