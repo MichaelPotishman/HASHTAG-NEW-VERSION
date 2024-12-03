@@ -41,7 +41,7 @@
 
         <div class="logout-modal-container">
             <div id="logout-confirmation-modal" class="logout-modal">
-                <h2>Are you sure you want to log out?</h2>
+                <h2 class="modal-text">Are you sure you want to log out?</h2>
                 <div class="modal-buttons">
                     <form action="/logout" method="POST">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 document.getElementById('theme-toggle').addEventListener('click', function () {
-    // Check if the body has the dark theme applied
     
+    // get the element which has ID = 'theme-toggle' ==> this is the button for changing theme
     const themeOutput = document.getElementById("theme-toggle");
+
+    // if this element has 'dark-theme' in its class, user is in dark mode so switch to light mode and opposite otherwise
     if (document.body.classList.contains('dark-theme')) {
         // Switch to light mode
         document.body.classList.remove('dark-theme');
@@ -85,8 +87,15 @@ document.getElementById('theme-toggle').addEventListener('click', function () {
         themeOutput.innerText = 'Switch to Light mode';
     }
 
-    // Set a cookie to remember the user's theme preference for 365 days
-    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    // Get a variable called 'current-theme' which stores what the user is on right now
+    let currentTheme;
+    if (document.body.classList.contains('dark-theme')) {
+        currentTheme = 'dark';
+    } else {
+        currentTheme = 'light';
+    }
+
+    // ONLY IF the user gives 'all cookies' consent, does a cookie for theme be created
     if (cookieConsent === 'true' || pressed){
         setCookie('theme', currentTheme, 365);
     }
