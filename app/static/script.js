@@ -46,7 +46,6 @@ document.getElementById('manage-cookies').addEventListener('click', function () 
 })
 
 document.addEventListener('DOMContentLoaded', function() {
-    window.onload = function () {
         
         const themeCookie = getCookie("theme");
 
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.classList.remove('dark-theme');
             }
         }
-    };
+
     
 });
 
