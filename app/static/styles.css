@@ -32,6 +32,10 @@ body.dark-theme {
     --post-text: #1f2937;
 }
 
+.modal-text{
+    color: white;
+}
+
 .cookies-banner{
     color: white;
 }

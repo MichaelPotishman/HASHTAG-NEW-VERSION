@@ -27,8 +27,8 @@
 
         <div class="account-modal-container">
             <div id="account-confirmation-modal" class="account-modal">
-                <h2>Are you sure you want to delete your account?</h2>
-                <p>This action cannot be undone.</p>
+                <h2 class="modal-text">Are you sure you want to delete your account?</h2>
+                <p class="modal-text">This action cannot be undone.</p>
                 <div class="modal-buttons">
                     <form action="{{ url_for('delete_account', user_id=current_user.id) }}" method="POST">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
