@@ -18,6 +18,14 @@ body {
     
 }
 
+h1{
+    margin-bottom: 0;
+}
+
+h5{
+    color: #1f2937;
+}
+
 body.dark-theme {
     --navbar-colour: #111827;
     --text-colour: #f3f4f6;
@@ -25,7 +33,7 @@ body.dark-theme {
 }
 
 p{
-    color: var(--text-colour);
+    color: white;
 }
 
 img{
@@ -33,9 +41,20 @@ img{
     object-fit: cover;
 }
 
+.user-title, .hashtag-title{
+    color: #1f2937;
+}
+
+.hashtag-profile-title{
+    display: flex;
+    justify-content: center;
+}
+
+
 .post-img{
     max-height: 300px;
     object-fit: cover;
+    width: min(90%, 400px);
 }
 
 
@@ -49,6 +68,10 @@ img{
     top: 0;
     z-index: 50;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.fa-bars{
+    color: var(--text-colour);
 }
 
 .collapse{
@@ -119,7 +142,7 @@ img{
     margin-bottom: 10px;
 }
 
-.login-title{
+.login-title, .register-title{
     margin-top: 30px;
 }
 
@@ -151,7 +174,7 @@ img{
 }
 
 .register-title{
-    color: black;
+    color: var(--text-colour);
     margin-top: 30px;
 }
 
@@ -278,7 +301,7 @@ input[type="text"]:focus {
 }
 
 /* Delete button and Edit button */
-.right-buttons {
+.post-right-buttons {
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: center;
@@ -290,7 +313,21 @@ input[type="text"]:focus {
     font-weight: 500;
     border-radius: 0.5rem;
     transition: color 0.2s;
+    cursor: pointer;
 }
+
+.post-right-buttons{
+    color: #991b1b;
+}
+
+.users-posts-titles{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+
 
 .more-right-buttons {
     display: flex;
@@ -328,7 +365,7 @@ input[type="text"]:focus {
     color: #991b1b;
 }
 
-.right-buttons:hover, .delete-button:hover {
+.fa-trash:hover{
     color: #991b1b;
 }
 
@@ -405,6 +442,15 @@ i, span{
     gap: 10px;
     border: 2px solid black;
 }
+
+.user-profile-username{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1f2937;
+}
+
+
 
 .user-profile-container h2{
     font-style: italic;
@@ -489,7 +535,7 @@ i, span{
 }
 
 .tab-btn.active {
-    background: #007bff;
+    background: #0056b3;
     color: white;
 }
 
@@ -518,6 +564,7 @@ i, span{
 }
 
 .modal-content{
+    padding: 10px;
     width: 100%;
     height: 100%;
 }
@@ -542,7 +589,7 @@ i, span{
     transform: none;
     width: 100%; 
     margin-top: 10px;
-    background-color: red;
+    background-color:#2E2E2E;;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -555,7 +602,7 @@ i, span{
     display: block; /* WHEN SET TO ACTIVE SHOW ALL OF IT */
 }
 
-.account-modal .modal-buttons, .logout-modals .modal-buttons {
+.modal-buttons{
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -563,13 +610,17 @@ i, span{
 
 
 .confirm-delete {
-    background-color: red;
+    background-color: #a50000;
     color: white;
+    padding: 5px;
+    border-radius: 25px;
 }
 
 .cancel-delete {
-    background-color: gray;
+    background-color: #4a4a4a;
     color: white;
+    padding: 5px;
+    border-radius: 25px;
 }
 
 /* edit user */

@@ -97,7 +97,7 @@ document.getElementById('theme-toggle').addEventListener('click', function () {
 document.addEventListener("DOMContentLoaded", function () {
     // POST DELETION!
     function attachDeleteButtonListeners() {
-        const deleteButtons = document.querySelectorAll('.right-buttons');
+        const deleteButtons = document.querySelectorAll('.post-right-buttons');
 
         for (let i = 0; i < deleteButtons.length; i++){
             deleteButtons[i].addEventListener("click", function () {
@@ -152,6 +152,14 @@ document.addEventListener("DOMContentLoaded", function () {
         accountModal.classList.remove('active');
     });
 
+    // Close modal if clicked outside
+    document.addEventListener("click", function(event) {
+        if (!accountModal.contains(event.target) && !accountDeleteBtn.contains(event.target) && !modalContainer.contains(event.target)) {
+            modalContainer.classList.remove('active');
+            accountModal.classList.remove('active');
+        }
+    });
+
     // Logout Modal
     const logoutBtn = document.getElementById("logout-open-modal-btn");
     const logoutModal = document.getElementById("logout-confirmation-modal");
@@ -171,6 +179,14 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutModal.classList.remove('active');
 
     });
+
+    // Close logout modal if clicked outside
+    document.addEventListener("click", function(event) {
+        if (!logoutModal.contains(event.target) && !logoutBtn.contains(event.target) && !logoutModalContainer.contains(event.target)) {
+            logoutModalContainer.classList.remove('active');
+            logoutModal.classList.remove('active');
+        }
+    });
 });
 
 $(document).ready(function() {
@@ -186,17 +202,6 @@ $(document).ready(function() {
             } 
         } 
     });  
-
-
-    // $(document).on('click', '#post-open-modal-btn', function() {
-    //     $('#post-confirmation-modal').css('display', 'block');
-    // });
-
-    // $(document).on('click', '#post-close-modal-btn', function() {
-
-    //     $('#post-confirmation-modal').css('display', 'none');
-    // });
-
 
 
     $(document).on("click", "a.vote", function() {
@@ -317,13 +322,23 @@ $(document).ready(function() {
     const dropdowntoggle = document.getElementById('dropdown-toggle');
     const dropdownMenu = document.getElementById('dropdown-menu');
 
+
+
     dropdowntoggle.addEventListener('click', function(event) {
         if (dropdownMenu.classList.contains('active')) {
+
             dropdownMenu.classList.remove('active');
         } else {
             dropdownMenu.classList.add('active');
+  
         }
-    })
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdownMenu.contains(event.target) && !dropdowntoggle.contains(event.target)){
+            dropdownMenu.classList.remove('active');
+        }
+    });
 });
 
 

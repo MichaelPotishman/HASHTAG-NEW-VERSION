@@ -8,7 +8,9 @@ from datetime import datetime
 import json
 import os
 
-UPLOAD_FOLDER = '/home/MichaelPotishman/HASHTAG-NEW-VERSION/app/static/uploads'
+# UPLOAD_FOLDER = '/home/MichaelPotishman/HASHTAG-NEW-VERSION/app/static/uploads'
+UPLOAD_FOLDER = 'app/static/uploads'
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
