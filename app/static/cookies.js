@@ -17,9 +17,9 @@ window.addEventListener("load", function() {
             "href": "https://ico.org.uk/for-the-public/online/cookies/"  // Link to your cookies policy page
         }
     });
-});
 
-document.getElementById('theme-toggle').addEventListener('click', function () {
+
+
     
     // get the element which has ID = 'theme-toggle' ==> this is the button for changing theme
     const themeOutput = document.getElementById("theme-toggle");
@@ -46,6 +46,5 @@ document.getElementById('theme-toggle').addEventListener('click', function () {
             localStorage.setItem('theme', 'dark');  
         }
     });
-
 });
 
