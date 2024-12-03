@@ -46,8 +46,8 @@ document.getElementById('manage-cookies').addEventListener('click', function () 
 })
 
 document.addEventListener('DOMContentLoaded', function() {
-    window.onload = function () {
         
+    function checkCookieConsent(){
         const themeCookie = getCookie("theme");
 
         // If the cookie exists and is set to true, hide the consent banner
@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
+    checkCookieConsent();
+    
 })
 
 document.getElementById('theme-toggle').addEventListener('click', function () {
