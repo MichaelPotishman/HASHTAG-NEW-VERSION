@@ -25,7 +25,7 @@ document.querySelector('#all-cookies-btn').addEventListener('click', () => {
     pressed = true;
     console.log(pressed);
     document.querySelector('#cookies').style.display = 'none';
-    setCookie("cookie-consent", true, 30);
+    setCookie("cookie-consent", "true", 30);
 })
 
 document.querySelector('#mandatory-cookies-btn').addEventListener('click', () => {
@@ -47,27 +47,30 @@ document.getElementById('manage-cookies').addEventListener('click', function () 
 
 document.addEventListener('DOMContentLoaded', function() {
         
-    function checkCookieConsent(){
-        const themeCookie = getCookie("theme");
-
-        // If the cookie exists and is set to true, hide the consent banner
-        if (cookieConsent) {
-            document.querySelector('#cookies').style.display = 'none'; // Hide the banner
-        } else {
-            // If there is no cookie-consent, show the consent banner
-            document.querySelector('#cookies').style.display = 'block';
-        }
-        
-
-        if (themeCookie){
-            if (themeCookie === 'dark'){
-                document.body.classList.add('dark-theme');
-                
+    document.addEventListener('DOMContentLoaded', function() {
+        function checkCookieConsent(){
+            const cookieConsent = getCookie("cookie-consent");
+            const themeCookie = getCookie("theme");
+    
+            // Immediately hide the banner if consent is true
+            if (cookieConsent === 'true') {
+                document.querySelector('#cookies').style.display = 'none';
             } else {
-                document.body.classList.remove('dark-theme');
+                // If there is no cookie-consent, show the consent banner
+                document.querySelector('#cookies').style.display = 'block';
+            }
+    
+            if (themeCookie){
+                if (themeCookie === 'dark'){
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                }
             }
         }
-    }
+    
+        checkCookieConsent();
+    })
 
     checkCookieConsent();
     
