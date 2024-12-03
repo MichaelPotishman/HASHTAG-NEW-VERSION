@@ -42,7 +42,7 @@ document.querySelector('#mandatory-cookies-btn').addEventListener('click', () =>
 
 document.getElementById('manage-cookies').addEventListener('click', function () {
     document.querySelector('#cookies').style.display = 'block';
-    setCookie("cookie-consent", false, 30);
+    setCookie("cookie-consent", "false", 30);
 })
 
 document.addEventListener('DOMContentLoaded', function() {
