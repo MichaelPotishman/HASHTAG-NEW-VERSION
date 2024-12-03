@@ -46,34 +46,34 @@ document.getElementById('manage-cookies').addEventListener('click', function () 
 })
 
 document.addEventListener('DOMContentLoaded', function() {
-        
-    document.addEventListener('DOMContentLoaded', function() {
-        function checkCookieConsent(){
-            const cookieConsent = getCookie("cookie-consent");
-            const themeCookie = getCookie("theme");
-    
-            // Immediately hide the banner if consent is true
-            if (cookieConsent === 'true') {
-                document.querySelector('#cookies').style.display = 'none';
+    function checkCookieConsent(){
+        const cookieConsent = getCookie("cookie-consent");
+        const themeCookie = getCookie("theme");
+
+        // Precisely check for 'true' string and hide the banner
+        if (cookieConsent === 'true') {
+            document.querySelector('#cookies').style.display = 'none';
+        } else {
+            document.querySelector('#cookies').style.display = 'block';
+        }
+
+        if (themeCookie){
+            if (themeCookie === 'dark'){
+                document.body.classList.add('dark-theme');
             } else {
-                // If there is no cookie-consent, show the consent banner
-                document.querySelector('#cookies').style.display = 'block';
-            }
-    
-            if (themeCookie){
-                if (themeCookie === 'dark'){
-                    document.body.classList.add('dark-theme');
-                } else {
-                    document.body.classList.remove('dark-theme');
-                }
+                document.body.classList.remove('dark-theme');
             }
         }
-    
-        checkCookieConsent();
-    })
+    }
 
     checkCookieConsent();
-    
+})
+
+// Modify the all-cookies-btn to ensure 'true' is a string
+document.querySelector('#all-cookies-btn').addEventListener('click', () => {
+    pressed = true;
+    document.querySelector('#cookies').style.display = 'none';
+    setCookie("cookie-consent", "true", 30);
 })
 
 document.getElementById('theme-toggle').addEventListener('click', function () {
