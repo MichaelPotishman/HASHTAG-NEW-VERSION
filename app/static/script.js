@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Precisely check for 'true' string and hide the banner
         if (cookieConsent === 'true') {
-            document.querySelector('#cookies').style.display = 'none';
+            document.querySelector('#cookies').remove();
         } else {
             document.querySelector('#cookies').style.display = 'block';
         }
