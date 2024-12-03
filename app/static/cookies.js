@@ -17,7 +17,9 @@ window.addEventListener("load", function() {
             "deny": "Accept only mandatory cookies",
             "link": "Learn more",        
             "href": "https://ico.org.uk/for-the-public/online/cookies/" 
-        }
+        },
+        "type": "opt-in",
+        "layout":"two-button"
     });
 
 
