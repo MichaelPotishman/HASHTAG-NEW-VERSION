@@ -42,7 +42,7 @@ window.addEventListener("load", function() {
             // Switch to light mode
             document.body.classList.remove('dark-theme');
             themeOutput.innerText = 'Switch to Dark mode';
-            if (localStorage.getItem('cookieconsent', 'allow')){
+            if (localStorage.getItem('cookieconsent_status', 'allow')){
                 localStorage.setItem('theme', 'light'); 
             }
             
@@ -50,7 +50,7 @@ window.addEventListener("load", function() {
             // Switch to dark mode
             document.body.classList.add('dark-theme');
             themeOutput.innerText = 'Switch to Light mode';
-            if (localStorage.getItem('cookieconsent', 'allow')){
+            if (localStorage.getItem('cookieconsent_status', 'allow')){
                 localStorage.setItem('theme', 'dark'); 
             }  
         }
