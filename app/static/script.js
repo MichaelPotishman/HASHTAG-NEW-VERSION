@@ -1,49 +1,25 @@
+const cookieConsent = getCookie("cookie-consent");
 
+function setCookie(cookieName, cookieValue, expDays){
+    let date = new Date();
+    date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString()
+    document.cookie = cookieName + "=" + cookieValue + ";" + expires + "; path=/";
+}
 
+function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++){
+        const cookie = cookies[i].split("=");
+        if (cookie[0] === name){
+            return cookie[1];
+        }
+    }
+    return null;
+}
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    function setCookie(cookieName, cookieValue, expDays){
-        let date = new Date();
-        date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
-        const expires = "expires=" + date.toUTCString()
-        document.cookie = cookieName + "=" + cookieValue + ";" + expires + "; path=/";
-    }
-    
-    function getCookie(name) {
-        const cookies = document.cookie.split('; ');
-        for (let i = 0; i < cookies.length; i++){
-            const cookie = cookies[i].split("=");
-            if (cookie[0] === name){
-                return cookie[1];
-            }
-        }
-        return null;
-    }
-    
-    const cookieConsent = getCookie("cookie-consent");
-
-    const themeCookie = getCookie("theme");
-
-        // If the cookie exists and is set to true, hide the consent banner
-        if (cookieConsent) {
-            document.querySelector('#cookies').style.display = 'none'; // Hide the banner
-        } else {
-            // If there is no cookie-consent, show the consent banner
-            document.querySelector('#cookies').style.display = 'block';
-        }
-        
-
-        if (themeCookie){
-            if (themeCookie === 'dark'){
-                document.body.classList.add('dark-theme');
-                
-            } else {
-                document.body.classList.remove('dark-theme');
-            }
-        }
-
-
 
     
     // Get the button accepting cookies, once clicked change the div with id cookies to have diplay none (remove it)
@@ -72,6 +48,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#cookies').style.display = 'block';
         setCookie("cookie-consent", false, 30);
     })
+        
+        const themeCookie = getCookie("theme");
+
+        // If the cookie exists and is set to true, hide the consent banner
+        if (cookieConsent) {
+            document.querySelector('#cookies').style.display = 'none'; // Hide the banner
+        } else {
+            // If there is no cookie-consent, show the consent banner
+            document.querySelector('#cookies').style.display = 'block';
+        }
+        
+
+        if (themeCookie){
+            if (themeCookie === 'dark'){
+                document.body.classList.add('dark-theme');
+                
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
 
     
 });
