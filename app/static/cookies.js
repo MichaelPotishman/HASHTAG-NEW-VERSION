@@ -42,13 +42,17 @@ window.addEventListener("load", function() {
             // Switch to light mode
             document.body.classList.remove('dark-theme');
             themeOutput.innerText = 'Switch to Dark mode';
-
-            localStorage.setItem('theme', 'light'); 
+            if (localStorage.getItem('cookieconsent', 'allow')){
+                localStorage.setItem('theme', 'light'); 
+            }
+            
         } else {
             // Switch to dark mode
             document.body.classList.add('dark-theme');
             themeOutput.innerText = 'Switch to Light mode';
-            localStorage.setItem('theme', 'dark');  
+            if (localStorage.getItem('cookieconsent', 'allow')){
+                localStorage.setItem('theme', 'dark'); 
+            }  
         }
     });
 });
