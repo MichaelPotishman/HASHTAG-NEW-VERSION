@@ -89,7 +89,7 @@ def edit_user(user_id):
         return redirect(url_for('profile', user_id=user_id))
 
     # If form validation fails
-    return render_template("edit_profile.html", form=form, user=profile.user_id, theme = theme)
+    return render_template("edit_profile.html", form=form, user=profile.user_id, theme = theme, title="Edit User")
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -170,7 +170,7 @@ def feed():
         
 
     theme = request.cookies.get('theme')
-    return render_template('feed.html', theme=theme, posts=posts_dict, liked_posts = liked_posts, user_id=current_user.id)
+    return render_template('feed.html', theme=theme, posts=posts_dict, liked_posts = liked_posts, user_id=current_user.id, title="Feed")
 
 # search - only show the top part as the rest is done by AJAX so show only search bar IF there are posts at all
 @app.route('/search', methods=['GET'])
@@ -199,7 +199,7 @@ def search_page():
         
     
     theme=request.cookies.get('theme')
-    return render_template('search.html', posts = user_posts, theme=theme, all_users=user_dict, all_hashtags=hashtag_dict, profile=True)
+    return render_template('search.html', posts = user_posts, theme=theme, all_users=user_dict, all_hashtags=hashtag_dict, profile=True, title="Search")
     
 # search results - show the posts matching the users input
 @app.route("/search/<string:search_text>", methods=["GET"])
@@ -239,7 +239,7 @@ def search(search_text):
         liked_posts[post_id] = bool(existing_like)
     
     print("Posts Data:", posts_data)
-    return render_template("posts_template.html", posts=posts_data, liked_posts=liked_posts)
+    return render_template("posts_template.html", posts=posts_data, liked_posts=liked_posts, title="Search")
 
 
 # post page - gets the PostForm and allows users to add content to their post
@@ -311,7 +311,7 @@ def post():
         flash("Your post has been created!", "success")
         return redirect('/feed')
 
-    return render_template('post.html', theme=theme, form=form, user_id=current_user.id)
+    return render_template('post.html', theme=theme, form=form, user_id=current_user.id, title="Post")
 
 @app.route('/users_posts/<int:user_id>', methods=['GET','POST'])
 @login_required
@@ -345,7 +345,7 @@ def users_posts(user_id):
         liked_posts[post_id] = bool(existing_like)
     
     
-    return render_template('users_posts.html', theme = theme, profile = False, posts = posts_dict, liked_posts=liked_posts)
+    return render_template('users_posts.html', theme = theme, profile = False, posts = posts_dict, liked_posts=liked_posts, title="My Posts")
 
 # UPVOTING POSTS
 @app.route('/vote', methods=['POST'])
@@ -402,36 +402,6 @@ def delete_post(post_id):
 
 
 
-@app.route('/edit/<int:post_id>', methods=['GET','POST'])
-@login_required
-def edit_post(post_id):
-    theme = request.cookies.get('theme')
-    post_to_edit = models.Posts.query.get(post_id)
-    form = EditPost(obj=post_to_edit)
-    if form.validate_on_submit():
-        if not form.content.data:
-            flash("Content and Hashtags are required fields")
-            return render_template('edit.html', theme=theme)
-            
-        
-        image = request.files['image_or_video']
-        
-        if image.filename == '':
-            filename = 'default.jpg'  # User did not upload a file
-        elif image:
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            return "Invalid file type"
-        
-        post_to_edit.content = form.content.data
-        post_to_edit.image = filename
-            
-            
-        db.session.commit() 
-        flash("Successfully updated your post!")
-
-    return render_template('edit.html', form=form, post=post_to_edit, theme=theme)
 
 # ALL PROFILE ROUTES
 @app.route('/profile/<int:user_id>', methods=['GET','POST'])
@@ -441,7 +411,7 @@ def profile(user_id):
     user = models.User.query.get(user_id)
 
     theme = request.cookies.get('theme')
-    return render_template('profile.html', user=user, theme=theme)
+    return render_template('profile.html', user=user, theme=theme, title="Profile")
 
 @app.route('/hashtag-profile/<string:hashtag_name>', methods=['GET', 'POST'])
 @login_required
@@ -472,7 +442,7 @@ def hashtag_profile(hashtag_name):
         liked_posts[post_id] = bool(existing_like)
 
     theme = request.cookies.get('theme')
-    return render_template('hashtag_profile.html', theme=theme, posts=posts_dict, liked_posts = liked_posts, hashtag=hashtag_name)
+    return render_template('hashtag_profile.html', theme=theme, posts=posts_dict, liked_posts = liked_posts, hashtag=hashtag_name, title="Hashtag Profile")
 
 
 

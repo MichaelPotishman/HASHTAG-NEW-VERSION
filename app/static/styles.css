@@ -60,11 +60,18 @@ img{
     justify-content: center;
 }
 
-
-.post-img{
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-height: 300px;
-    object-fit: cover;
     width: min(90%, 400px);
+}
+
+.post-img {
+    max-height: 300px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 
