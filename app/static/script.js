@@ -25,7 +25,7 @@ document.querySelector('#all-cookies-btn').addEventListener('click', () => {
     pressed = true;
     console.log(pressed);
     document.querySelector('#cookies').style.display = 'none';
-    setCookie("cookie-consent", "true", 30);
+    setCookie("cookie-consent", true, 30);
 })
 
 document.querySelector('#mandatory-cookies-btn').addEventListener('click', () => {
@@ -42,38 +42,32 @@ document.querySelector('#mandatory-cookies-btn').addEventListener('click', () =>
 
 document.getElementById('manage-cookies').addEventListener('click', function () {
     document.querySelector('#cookies').style.display = 'block';
-    setCookie("cookie-consent", "false", 30);
+    setCookie("cookie-consent", false, 30);
 })
 
 document.addEventListener('DOMContentLoaded', function() {
-    function checkCookieConsent(){
-        const cookieConsent = getCookie("cookie-consent");
+    window.onload = function () {
+        
         const themeCookie = getCookie("theme");
 
-        // Precisely check for 'true' string and hide the banner
-        if (cookieConsent === 'true') {
-            document.querySelector('#cookies').remove();
+        // If the cookie exists and is set to true, hide the consent banner
+        if (cookieConsent) {
+            document.querySelector('#cookies').style.display = 'none'; // Hide the banner
         } else {
+            // If there is no cookie-consent, show the consent banner
             document.querySelector('#cookies').style.display = 'block';
         }
+        
 
         if (themeCookie){
             if (themeCookie === 'dark'){
                 document.body.classList.add('dark-theme');
+                
             } else {
                 document.body.classList.remove('dark-theme');
             }
         }
-    }
-
-    checkCookieConsent();
-})
-
-// Modify the all-cookies-btn to ensure 'true' is a string
-document.querySelector('#all-cookies-btn').addEventListener('click', () => {
-    pressed = true;
-    document.querySelector('#cookies').style.display = 'none';
-    setCookie("cookie-consent", "true", 30);
+    
 })
 
 document.getElementById('theme-toggle').addEventListener('click', function () {
