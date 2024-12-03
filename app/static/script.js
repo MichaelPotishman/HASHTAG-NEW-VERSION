@@ -1,4 +1,4 @@
-const cookieConsent = getCookie("cookie-consent");
+
 
 function setCookie(cookieName, cookieValue, expDays){
     let date = new Date();
@@ -18,34 +18,37 @@ function getCookie(name) {
     return null;
 }
 
-// Get the button accepting cookies, once clicked change the div with id cookies to have diplay none (remove it)
-// Then create a cookie called cookie-consent and set it to true and to expire in 30 days
-let pressed = false;
-document.querySelector('#all-cookies-btn').addEventListener('click', () => {
-    pressed = true;
-    console.log(pressed);
-    document.querySelector('#cookies').style.display = 'none';
-    setCookie("cookie-consent", true, 30);
-})
-
-document.querySelector('#mandatory-cookies-btn').addEventListener('click', () => {
-    pressed = false;
-    console.log(pressed);
-    document.querySelector('#cookies').style.display = 'none';
-    setCookie("cookie-consent", false, 30);
-
-    if (getCookie("theme")) {
-        setCookie("theme", "", -1);
-        console.log("Theme cookie removed");
-    }
-})
-
-document.getElementById('manage-cookies').addEventListener('click', function () {
-    document.querySelector('#cookies').style.display = 'block';
-    setCookie("cookie-consent", false, 30);
-})
 
 document.addEventListener('DOMContentLoaded', function() {
+    const cookieConsent = getCookie("cookie-consent");
+
+    
+    // Get the button accepting cookies, once clicked change the div with id cookies to have diplay none (remove it)
+    // Then create a cookie called cookie-consent and set it to true and to expire in 30 days
+    let pressed = false;
+    document.querySelector('#all-cookies-btn').addEventListener('click', () => {
+        pressed = true;
+        console.log(pressed);
+        document.querySelector('#cookies').style.display = 'none';
+        setCookie("cookie-consent", true, 30);
+    })
+
+    document.querySelector('#mandatory-cookies-btn').addEventListener('click', () => {
+        pressed = false;
+        console.log(pressed);
+        document.querySelector('#cookies').style.display = 'none';
+        setCookie("cookie-consent", false, 30);
+
+        if (getCookie("theme")) {
+            setCookie("theme", "", -1);
+            console.log("Theme cookie removed");
+        }
+    })
+
+    document.getElementById('manage-cookies').addEventListener('click', function () {
+        document.querySelector('#cookies').style.display = 'block';
+        setCookie("cookie-consent", false, 30);
+    })
         
         const themeCookie = getCookie("theme");
 
