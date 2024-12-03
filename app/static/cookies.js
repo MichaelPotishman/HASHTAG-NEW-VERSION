@@ -18,3 +18,34 @@ window.addEventListener("load", function() {
         }
     });
 });
+
+document.getElementById('theme-toggle').addEventListener('click', function () {
+    
+    // get the element which has ID = 'theme-toggle' ==> this is the button for changing theme
+    const themeOutput = document.getElementById("theme-toggle");
+
+    if (localStorage.getItem('theme') === 'dark'){
+        document.body.classList.add('dark-theme');
+        themeOutput.innerText = "Switch to Light Mode";
+        
+    } else {
+        document.body.classList.remove('dark-theme');
+        themeOutput.innerText = "Switch to Dark Mode";
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+        if (document.body.classList.contains('dark-theme')) {
+            // Switch to light mode
+            document.body.classList.remove('dark-theme');
+            themeOutput.innerText = 'Switch to Dark mode';
+            localStorage.setItem('theme', 'light'); 
+        } else {
+            // Switch to dark mode
+            document.body.classList.add('dark-theme');
+            themeOutput.innerText = 'Switch to Light mode';
+            localStorage.setItem('theme', 'dark');  
+        }
+    });
+
+});
+
