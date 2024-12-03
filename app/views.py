@@ -180,7 +180,7 @@ def search_page():
 
 
     all_users = db.session.query(models.User.id, models.User.username).all()
-    all_hashtags = db.session.query(models.Hashtags.id,models.Hashtags.name).distinct().all()
+    all_hashtags = db.session.query.filter(models.Posts.timestamp == datetime.today().date(), models.Hashtags.id,models.Hashtags.name).distinct().all()
         
     user_dict = {}
     for user in all_users:
@@ -217,7 +217,7 @@ def search(search_text):
         .all()
     )
     
-    print(f"Filtered posts count: {len(filtered_posts)}")
+    # print(f"Filtered posts count: {len(filtered_posts)}")
     
     liked_posts = {}
     posts_data = {}

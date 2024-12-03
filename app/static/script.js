@@ -258,10 +258,9 @@ $(document).ready(function() {
             // it then makes the button of which were on active to look different
             success: function(response) {
                 $('#content-area').html(response);
+                // this part changes the active state of each button which changes how it looks
                 $('#posts-btn').addClass('active');
                 $('#likes-btn').removeClass('active');
-                attachDeleteButtonListeners();
-                attachCloseButtonListeners();
             },
             error: function(error) {
                 console.log(error);
@@ -306,19 +305,21 @@ $(document).ready(function() {
         loadPosts(username);
     }
 
-    // search bar functionality now
+    // search bar functionality 
+    // '#search_text' is the id for the seach textbox - every single time a key is pressed, data is sent to the URL provided
     $('#search_text').on("keyup", function() {
         let search_text = $(this).val().trim();
         
-        // Make the request even if search is empty
+        // make the request using AJAX
         $.ajax({
+            // set the URL the request is sent to (handled in views.py)
             url: "/search/" + encodeURIComponent(search_text),
             type: 'GET',
+            // if succesful, the response it recieves from the URL is added to the div with id 'result' in search.html
             success: function(response) {
                 $("#result").html(response);
-                attachDeleteButtonListeners();
-                attachCloseButtonListeners();
             },
+            // if error, add an error message to same div
             error: function(error) {
                 console.log("Search error:", error);
                 $("#result").html('<p>No results matching your search</p>');

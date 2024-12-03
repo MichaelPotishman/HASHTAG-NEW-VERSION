@@ -29,24 +29,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
-class Posts(db.Model):
-    post_id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(1000), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    image = db.Column(db.String(120), nullable = True)
-    timestamp = db.Column(db.DateTime, index=True, default=db.func.now())
-    upvotes = db.Column(db.Integer, default=0)
 
-    # References
-    likes = db.relationship('Likes', backref='posts', lazy='dynamic')
-    comments = db.relationship('Comments', backref='posts', lazy='dynamic')
-    user = db.relationship('User', back_populates='posts')
-    
-    # Relationship for hashtags via the PostHashtag association table
-    hashtags = db.relationship('Hashtags', secondary='post_hashtag', back_populates='posts')
-
-    def __repr__(self):
-        return f'<Post {self.content[:20]}>'
 
 
 class Likes(db.Model):
@@ -72,13 +55,31 @@ class Followers(db.Model):
 
     def __repr__(self):
         return f'<Follower follower_id={self.follower_id}, followed_id={self.following_id}>'
+    
+class Posts(db.Model):
+    post_id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(1000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    image = db.Column(db.String(120), nullable = True)
+    timestamp = db.Column(db.DateTime, index=True, default=db.func.now())
+    upvotes = db.Column(db.Integer, default=0)
+
+    # References
+    likes = db.relationship('Likes', backref='posts', lazy='dynamic')
+    comments = db.relationship('Comments', backref='posts', lazy='dynamic')
+    user = db.relationship('User', back_populates='posts')
+    
+    # Relationship for hashtags through  PostHashtag 
+    hashtags = db.relationship('Hashtags', secondary='post_hashtag', back_populates='posts')
+
+    def __repr__(self):
+        return f'<Post {self.content[:20]}>'
 
 class PostHashtag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'), nullable=False)
     hashtag_id = db.Column(db.Integer, db.ForeignKey('hashtags.id'), nullable=False)
 
-    # No additional relationships here; handled in Posts and Hashtags models
 
     def __repr__(self):
         return f'<PostHashtag post_id={self.post_id} hashtag_id={self.hashtag_id}>'
