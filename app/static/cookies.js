@@ -12,9 +12,10 @@ window.addEventListener("load", function() {
         },
         "content": {
             "message": "This website uses mandatory cookies as well as optional cookies. Choose your preference below.",
-            "dismiss": "Accept all cookies",
-            "link": "Learn more",        // Link to your cookies policy
-            "href": "https://ico.org.uk/for-the-public/online/cookies/"  // Link to your cookies policy page
+            "all": "Accept all cookies",
+            "mandatory": "Accept only mandatory cookies",
+            "link": "Learn more",        
+            "href": "https://ico.org.uk/for-the-public/online/cookies/" 
         }
     });
 
@@ -38,6 +39,7 @@ window.addEventListener("load", function() {
             // Switch to light mode
             document.body.classList.remove('dark-theme');
             themeOutput.innerText = 'Switch to Dark mode';
+
             localStorage.setItem('theme', 'light'); 
         } else {
             // Switch to dark mode
