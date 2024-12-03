@@ -12,8 +12,9 @@ window.addEventListener("load", function() {
         },
         "content": {
             "message": "This website uses mandatory cookies as well as optional cookies. Choose your preference below.",
-            "all": "Accept all cookies",
-            "mandatory": "Accept only mandatory cookies",
+            "dismiss": "Got it",
+            "allow": "Accept all cookies",
+            "deny": "Accept only mandatory cookies",
             "link": "Learn more",        
             "href": "https://ico.org.uk/for-the-public/online/cookies/" 
         }
