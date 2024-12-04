@@ -4,9 +4,12 @@
 
 <div class="profile-container">
     <div class="upper-buttons">
-        <button class="left-button" onclick="/feed">
-            <i class="fa-solid fa-house"></i>
-        </button>
+        <a href="/feed">
+            <button class="left-button">
+                <i class="fa fa-home" aria-hidden="true"></i>
+            </button>
+        </a>
+        
         {% if user.id == current_user.id %}
         <div class="dropdown-container">
             <button class="dropdown-button" id = "dropdown-toggle">
