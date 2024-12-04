@@ -9,8 +9,8 @@
                 {{ form.hidden_tag() }}
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    {{ form.username(class="form-control", id="username") }}
+                    <label for="username">Username: </label>
+                    {{ form.username(class="form-control", id="username", placeholder =  "username") }}
                     {% if form.username.errors %}
                         <div class="alert alert-danger" role="alert">
                             {% for error in form.username.errors %}
@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    {{ form.password(class="form-control", id="password") }}
+                    {{ form.password(class="form-control", id="password", placeholder =  "password") }}
                     {% if form.password.errors %}
                         <div class="alert alert-danger" role="alert">
                             {% for error in form.password.errors %}
@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     <label for="password">Email:</label>
-                    {{ form.email(class="form-control", id="email") }}
+                    {{ form.email(class="form-control", id="email", placeholder =  "email") }}
                     {% if form.email.errors %}
                         <div class="alert alert-danger" role="alert">
                             {% for error in form.email.errors %}
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="profile_picture">Profile Picture:</label>
+                    <label for="profile_picture">Profile Picture (Leave empty for none):</label>
                     {{ form.profile_picture(class="form-control", id="profile_picture") }}
                     {% if form.profile_picture.errors %}
                         <div class="alert alert-danger" role="alert">

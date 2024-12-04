@@ -41,7 +41,7 @@ def login():
             login_user(user)
             return redirect('/feed')  # Redirect to the homepage or dashboard
         else:
-            flash("Invalid username or password.")
+            flash("Invalid username or password.", "error")
     
     return render_template('home.html', form=form, title="Login / Register", theme=theme)
 
@@ -66,7 +66,7 @@ def edit_user(user_id):
     
     if form.validate_on_submit():
         if not form.username.data or not form.password.data or not form.email.data:
-            flash("Username, Password and Email are required fields")
+            flash("Username, Password and Email are required fields", "error")
             return render_template("edit_profile.html", form=form, user=profile)
         
         profile.username = form.username.data
@@ -74,14 +74,17 @@ def edit_user(user_id):
         profile.email = form.email.data
         
         profile_picture = request.files['profile_picture']
-        if profile_picture.filename == '':
-            filename = profile.profile_picture or 'default.jpg'
-        elif profile_picture:
-            filename = secure_filename(profile_picture.filename)
-            profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            return "Invalid file type"
-        
+        if profile_picture:
+            if profile_picture.filename == '':
+                filename = profile.profile_picture or 'default.jpg'
+            elif allowed_file(profile_picture.filename):
+                filename = secure_filename(profile_picture.filename)
+                profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
+                return render_template("edit_profile.html", form=form, user=profile, theme = theme, title="Edit User")
+
+            
         profile.profile_picture = filename
         flash("Successfully updated profile")
         db.session.commit()
@@ -107,13 +110,13 @@ def register():
         # checking if already username in database
         existing_user = models.User.query.filter_by(username = form.username.data).first()
         if existing_user:
-            flash("Username is already taken. Please choose another username", 'danger')
+            flash("Username is already taken. Please choose another username", "error")
             return render_template('register.html', form=form, min_birthday=min_age)
         
         # checking if email has @ sign
         if '@' not in form.email.data:
 
-            flash("Email must be a valid email", 'danger')
+            flash("Email must be a valid email", "error")
             return render_template('register.html', form=form, min_birthday=min_age)
         
         profile_picture = request.files['profile_picture']
@@ -312,6 +315,48 @@ def post():
         return redirect('/feed')
 
     return render_template('post.html', theme=theme, form=form, user_id=current_user.id, title="Post")
+
+
+@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required 
+def edit_post(post_id):
+    post = models.Posts.query.get(post_id)
+    theme = request.cookies.get('theme')
+    form = EditPost(obj=post)
+
+    if request.method == 'GET':
+        # For GET request, render the edit profile template
+        return render_template("edit_post.html", form=form, theme=theme)
+
+    if form.validate_on_submit():
+            # Updating content
+            post.content = form.content.data
+
+            # Processing image
+            post_image = request.files['image_or_video']
+            filename = ''
+            if post_image:
+                if post_image.filename == '':
+                    filename = ''
+                elif allowed_file(post_image.filename):
+                    filename = secure_filename(post_image.filename)
+                    post_image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                else:
+                    flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
+                    return render_template("edit_post.html", form=form, theme=theme, title="Edit Post")
+            
+            post.image = filename
+            
+            # Commit all changes
+            db.session.commit()
+            
+            flash("Post updated")
+            return redirect('/feed')
+
+
+    
+    return render_template('edit_post.html', theme=theme, title="Edit Post", form=form)
+    
 
 @app.route('/users_posts/<int:user_id>', methods=['GET','POST'])
 @login_required

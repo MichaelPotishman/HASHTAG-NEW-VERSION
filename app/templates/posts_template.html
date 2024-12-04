@@ -26,8 +26,13 @@
                                             {% if post_data.user_id == current_user.id and profile != True %}
                                                 <div class="username-right">
 
-   
-
+                                                    <button class="post-right-buttons">
+                                                        <a href="{{ url_for('edit_post', post_id=post_id) }}" class="post-right-buttons">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </button>
+                                                    
+                                                    
                                                     <button id="post-open-modal-btn-{{ post_id }}" class="post-right-buttons" data-post-id="{{ post_id }}" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     
                                                     <div id="post-confirmation-modal-{{ post_id }}" class="modal">
