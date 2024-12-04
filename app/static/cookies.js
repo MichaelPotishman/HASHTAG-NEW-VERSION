@@ -2,12 +2,12 @@ window.addEventListener("load", function() {
     window.cookieconsent.initialise({
         "palette": {
             "popup": {
-                "background": "#eaf7f7",    // Popup background color
-                "text": "#5c7291"            // Popup text color
+                "background": "#eaf7f7",    
+                "text": "#5c7291"         
             },
             "button": {
-                "background": "#56cbdb",     // Button background color
-                "text": "#ffffff"            // Button text color
+                "background": "#56cbdb",    
+                "text": "#ffffff"           
             }
         },
         "content": {

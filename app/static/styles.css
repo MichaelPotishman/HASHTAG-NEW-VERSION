@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+.cc-color-override--1608664607.cc-revoke {
+    background-color: var(--text-colour);
+}
+
 label{
     margin: 0;
 }
@@ -15,6 +19,7 @@ body.light-theme {
     --navbar-colour: white;
     --text-colour: #1f2937;
     --post-text: #f3f4f6;
+    --opposite-background: #1f2937;
 }
 
 body.dark-theme {
@@ -22,6 +27,7 @@ body.dark-theme {
     --navbar-colour: #111827;
     --text-colour: #f3f4f6;
     --post-text: #1f2937;
+    --opposite-background: #f3f4f6;
 }
 
 body{
