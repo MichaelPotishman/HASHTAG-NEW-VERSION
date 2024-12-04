@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     // POST DELETION!
-    function attachDeleteButtonListeners() {
+
         const deleteButtons = document.querySelectorAll('.post-right-buttons');
 
         for (let i = 0; i < deleteButtons.length; i++){
@@ -15,10 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-        }
+
     }
 
-    function attachCloseButtonListeners() {
         const closeModalButtons = document.querySelectorAll('.cancel-delete');
         
         for (let i = 0; i < closeModalButtons.length; i++){
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     modal.style.display = "none";
                 }
             });
-        }
+
     }
 
 
