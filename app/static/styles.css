@@ -184,10 +184,11 @@ img{
     cursor: pointer;
     margin-top: 15px;
     border: 1px solid black;
+    transition: background-color 0.2s ease;
 }
 
-.login-button:hover{
-    outline: 1px solid #fff;
+.login-button:hover, .edit-account-button:hover, .register-button:hover, .post-button:hover{
+    background: #a7a3a3bd;
 }
 
 /* Register page */
