@@ -16,7 +16,7 @@ label{
 body.light-theme {
     font-family: 'Inter', sans-serif;
     --primary-background: #f3f4f6;
-    --navbar-colour: white;
+    c
     --text-colour: #1f2937;
     --post-text: #f3f4f6;
     --opposite-background: #1f2937;
@@ -32,6 +32,7 @@ body.dark-theme {
 
 body{
     background-color: var(--primary-background);
+    background-color: var(--navbar-colour);
 }
 
 h1{
@@ -157,11 +158,12 @@ img{
     align-items: center;
 }
 
-.login-box, .post-box{
+.login-box, .post-box, .register-box{
     max-width: 250px;
     margin: 0 auto;
     text-align: center;
     margin-bottom: 10px;
+    border: 1px solid black;
 }
 
 .login-title, .register-title{
@@ -182,6 +184,7 @@ img{
     border-radius: 10px;
     cursor: pointer;
     margin-top: 15px;
+    border: 1px solid black;
 }
 
 .login-button:hover{
