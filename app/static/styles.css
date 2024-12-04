@@ -16,10 +16,10 @@ label{
 body.light-theme {
     font-family: 'Inter', sans-serif;
     --primary-background: #f3f4f6;
-    c
     --text-colour: #1f2937;
     --post-text: #f3f4f6;
     --opposite-background: #1f2937;
+    --navbar-colour: #111827;
 }
 
 body.dark-theme {
@@ -32,7 +32,6 @@ body.dark-theme {
 
 body{
     background-color: var(--primary-background);
-    background-color: var(--navbar-colour);
 }
 
 h1{
