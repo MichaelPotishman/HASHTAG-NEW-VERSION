@@ -163,7 +163,6 @@ img{
     margin: 0 auto;
     text-align: center;
     margin-bottom: 10px;
-    border: 1px solid black;
 }
 
 .login-title, .register-title{
@@ -176,7 +175,7 @@ img{
     margin-top: 20px;
 }
 
-.login-button, .edit-account-button{
+.login-button, .edit-account-button, .register-button, .post-button{
     background: #fff;
     color: black;
     padding: 10px;
