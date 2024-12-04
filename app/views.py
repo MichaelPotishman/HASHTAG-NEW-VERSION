@@ -83,7 +83,8 @@ def edit_user(user_id):
             else:
                 flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
                 return render_template("edit_profile.html", form=form, user=profile, theme = theme, title="Edit User")
-
+        else:
+            filename = 'default.jpg'
             
         profile.profile_picture = filename
         flash("Successfully updated profile")
