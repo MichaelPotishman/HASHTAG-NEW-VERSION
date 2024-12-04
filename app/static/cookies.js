@@ -29,6 +29,9 @@ window.addEventListener("load", function() {
                 if (savedTheme){
                     document.body.classList.add(savedTheme + '-theme');
                 }
+            } else if (status === 'deny'){
+                document.body.classList.remove('dark-theme');
+                localStorage.removeItem('theme');
             }
         }
     });
