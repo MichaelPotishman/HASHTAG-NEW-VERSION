@@ -19,7 +19,18 @@ window.addEventListener("load", function() {
             "href": "https://ico.org.uk/for-the-public/online/cookies/" 
         },
         "type": "opt-in",
-        "layout":"two-button"
+        "layout":"two-button",
+        onStatusChange: function(status) {
+            // Save the cookie consent status in localStorage when the user accepts cookies
+            localStorage.setItem('cookieconsent_status', status);
+
+            if (status === 'allow'){
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme){
+                    document.body.classList.add(savedTheme + '-theme');
+                }
+            }
+        }
     });
 
 
@@ -27,8 +38,9 @@ window.addEventListener("load", function() {
     
     // get the element which has ID = 'theme-toggle' ==> this is the button for changing theme
     const themeOutput = document.getElementById("theme-toggle");
+    const savedTheme = localStorage.getItem('theme');
 
-    if (localStorage.getItem('theme') === 'dark'){
+    if (savedTheme === 'dark'){
         document.body.classList.add('dark-theme');
         themeOutput.innerText = "Switch to Light Mode";
         
