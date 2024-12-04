@@ -34,9 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    attachDeleteButtonListeners();
-    attachCloseButtonListeners();
-
 
     // Account Deletion Modal
     const accountDeleteBtn = document.getElementById("open-modal-btn");
