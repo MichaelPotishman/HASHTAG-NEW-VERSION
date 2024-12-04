@@ -8,7 +8,7 @@ from datetime import datetime
 import json
 import os
 
-UPLOAD_FOLDER = '/home/MichaelPotishman/HASHTAG-NEW-VERSION/app/static/uploads'
+UPLOAD_FOLDER = 'app/static/uploads'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -469,13 +469,16 @@ def hashtag_profile(hashtag_name):
     for post in posts_with_hashtag:
         image = post.image if post.image else ''
         post_id = post.post_id
+        
+        profile_pic = post.user.profile_picture if post.user.profile_picture else 'default.jpg'
         posts_dict[post_id] = {
             'content': post.content,
             'username': post.user.username if post.user.username else '',
             'hashtags': [], 
             'upvotes': post.upvotes,
             'user_id': post.user_id,
-            'image': image
+            'image': image,
+            'profile_picture': profile_pic
         }
         
         for hashtag in post.hashtags:
@@ -487,7 +490,7 @@ def hashtag_profile(hashtag_name):
         liked_posts[post_id] = bool(existing_like)
 
     theme = request.cookies.get('theme')
-    return render_template('hashtag_profile.html', theme=theme, posts=posts_dict, liked_posts = liked_posts, hashtag=hashtag_name, title="Hashtag Profile")
+    return render_template('hashtag_profile.html', user_id=current_user.id, theme=theme, posts=posts_dict, liked_posts = liked_posts, hashtag=hashtag_name, title="Hashtag Profile")
 
 
 
