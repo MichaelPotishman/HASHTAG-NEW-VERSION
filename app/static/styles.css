@@ -13,7 +13,7 @@ label{
     margin: 0;
 }
 
-body.light-theme {
+body {
     font-family: 'Inter', sans-serif;
     --primary-background: #f3f4f6;
     --text-colour: #1f2937;
