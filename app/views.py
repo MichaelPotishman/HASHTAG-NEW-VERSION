@@ -72,8 +72,10 @@ def edit_user(user_id):
             flash("Username, Password and Email are required fields", "error")
             return render_template("edit_profile.html", form=form, user=profile)
         
+        
+        
         existing_user = models.User.query.filter_by(username = form.username.data).first()
-        if existing_user:
+        if existing_user and profile.id != existing_user.id:
             flash("Username is already taken. Please choose another username", "error")
             return render_template("edit_profile.html", form=form, user=profile)
         
