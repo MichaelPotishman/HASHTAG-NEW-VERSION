@@ -9,7 +9,7 @@ import json
 import os
 
 # define pathway
-UPLOAD_FOLDER = '/home/MichaelPotishman/HASHTAG-NEW-VERSION/app/static/uploads'
+UPLOAD_FOLDER = 'app/static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -140,7 +140,8 @@ def register():
             filename = secure_filename(profile_picture.filename)
             profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         else:
-            return "Invalid file type"
+            flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
+            return render_template("edit_profile.html", form=form, user=profile, theme = theme, title="Edit User")
             
     
         new_user = models.User(username=form.username.data, password=form.password.data, email=form.email.data, date_of_birth=form.date_of_birth.data, profile_picture=filename)
