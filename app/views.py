@@ -65,6 +65,7 @@ def edit_user(user_id):
     
     if request.method == 'GET':
         # For GET request, render the edit profile template
+        form.profile_picture.data = profile.profile_picture
         return render_template("edit_profile.html", form=form, user=profile)
     
     if form.validate_on_submit():
