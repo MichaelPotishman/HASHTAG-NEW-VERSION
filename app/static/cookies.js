@@ -31,11 +31,7 @@ window.addEventListener("load", function() {
                 }
             } else if (status === 'deny'){
                 localStorage.removeItem('theme');
-            } else {
-                // For any other status (including no selection), clear theme-related storage
-                localStorage.removeItem('theme');
-                localStorage.removeItem('cookieconsent_status');
-              }
+            } 
         }
     });
 
