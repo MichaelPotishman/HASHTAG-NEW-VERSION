@@ -134,15 +134,16 @@ def register():
         
         profile_picture = request.files['profile_picture']
         
-        if profile_picture.filename == '':
-            filename = 'default.jpg'  
-        elif profile_picture:
-            filename = secure_filename(profile_picture.filename)
-            profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
-            return render_template("edit_profile.html", form=form, user=profile, theme = theme, title="Edit User")
-            
+        if profile_picture:
+            if profile_picture.filename == '':
+                filename = 'default.jpg'  
+            elif profile_picture:
+                filename = secure_filename(profile_picture.filename)
+                profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                flash("Invalid file type. Please upload an image file (png, jpg, jpeg, gif).", 'error')
+                return render_template("edit_profile.html", form=form, user=profile, theme = theme, title="Edit User")
+                
     
         new_user = models.User(username=form.username.data, password=form.password.data, email=form.email.data, date_of_birth=form.date_of_birth.data, profile_picture=filename)
         db.session.add(new_user)
