@@ -31,6 +31,9 @@ window.addEventListener("load", function() {
                 }
             } else if (status === 'deny'){
                 localStorage.removeItem('theme');
+            } else {
+                localStorage.removeItem('theme');
+                localStorage.removeItem('cookieconsent_status');
             }
         }
     });
