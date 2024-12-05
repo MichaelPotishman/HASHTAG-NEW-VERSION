@@ -8,8 +8,8 @@ from datetime import datetime
 import json
 import os
 
+# define pathway
 UPLOAD_FOLDER = '/home/MichaelPotishman/HASHTAG-NEW-VERSION/app/static/uploads'
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -26,6 +26,7 @@ def allowed_file(filename):
 # LOGIN USER / LOGOUT USER / DELETE USER / REGISTER USER
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    # if user gives credentials check if they match using flask_login
     if current_user.is_authenticated:
         logout_user()
         print("Logged out existing user")
@@ -37,9 +38,9 @@ def login():
 
         user = models.User.query.filter_by(username=form.username.data).first()
         print(f"USERNAME = {user}")
-        if user and user.password == form.password.data:  # Ideally, hash and check passwords
+        if user and user.password == form.password.data: 
             login_user(user)
-            return redirect('/feed')  # Redirect to the homepage or dashboard
+            return redirect('/feed') 
         else:
             flash("Invalid username or password.", "error")
     
@@ -48,6 +49,7 @@ def login():
 @app.route('/delete_account/<int:user_id>', methods=['POST'])
 @login_required
 def delete_account(user_id):
+    # get the user_id, then delete from the database
     user = models.User.query.get(user_id)
     db.session.delete(user)
     db.session.commit()
@@ -56,6 +58,7 @@ def delete_account(user_id):
 @app.route('/edit_user/<int:user_id>', methods=['GET','POST'])
 @login_required
 def edit_user(user_id):
+    # first get the user_id, and then the same form, only passing in a parameter so the old contents shown - have it be upaated when user submits
     profile = models.User.query.get(user_id)
     theme = request.cookies.get('theme')
     form = EditProfile(obj=profile)
@@ -108,6 +111,7 @@ def logout():
     
 @app.route('/register', methods=['GET','POST'])
 def register():
+    # show the form to the user, asks for details and if valid, add to database
     today = datetime.today().date()
     min_age = today.replace(year = today.year - 16)
     theme = request.cookies.get('theme')
@@ -128,7 +132,7 @@ def register():
         profile_picture = request.files['profile_picture']
         
         if profile_picture.filename == '':
-            filename = 'default.jpg'  # User did not upload a file
+            filename = 'default.jpg'  
         elif profile_picture:
             filename = secure_filename(profile_picture.filename)
             profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -152,6 +156,10 @@ def feed():
     # get all posts by: User table to Post, then Post to PostHshtag, then PostHashtag to Hashtag
     user_posts = models.Posts.query.join(models.User, models.Posts.user_id == models.User.id).join(models.PostHashtag, models.Posts.post_id == models.PostHashtag.post_id).join(models.Hashtags, models.PostHashtag.hashtag_id == models.Hashtags.id).order_by(models.Posts.post_id.desc()).all()
 
+
+    # REUSED FUNCTION - this function is used loads and is very important - defines a dictionary and a liked_posts dictionary
+    # it then loops through each post reieved earlier (different in each view) and adds all the necessary details of it to be the 
+    # values in the dictionary, with key 'post_id'.
     posts_dict = {}
     liked_posts = {}
     for post in user_posts:
@@ -185,6 +193,7 @@ def feed():
 @app.route('/search', methods=['GET'])
 @login_required
 def search_page():
+    # this view gets all the users usernames and the distinct hashtags in the database to display on the page
     user_posts = models.Posts.query.join(models.User, models.Posts.user_id == models.User.id).join(models.PostHashtag, models.Posts.post_id == models.PostHashtag.post_id).join(models.Hashtags, models.PostHashtag.hashtag_id == models.Hashtags.id).order_by(models.Posts.post_id.desc()).all()
 
 
@@ -255,6 +264,7 @@ def search(search_text):
 @app.route('/post', methods=['GET', 'POST'])
 @login_required
 def post():
+    # displays the post form, asks users to fill it in and validates certain data
     form = PostForm()
     theme = request.cookies.get('theme')
 
@@ -326,6 +336,7 @@ def post():
 @app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
 @login_required 
 def edit_post(post_id):
+    # gets the specific post being edited and puts the old data and shows it for user to change
     post = models.Posts.query.get(post_id)
     theme = request.cookies.get('theme')
     form = EditPost(obj=post)
@@ -335,10 +346,8 @@ def edit_post(post_id):
         return render_template("edit_post.html", form=form, theme=theme)
 
     if form.validate_on_submit():
-            # Updating content
             post.content = form.content.data
 
-            # Processing image
             post_image = request.files['image_or_video']
             filename = ''
             if post_image:
@@ -353,7 +362,6 @@ def edit_post(post_id):
             
             post.image = filename
             
-            # Commit all changes
             db.session.commit()
             
             flash("Post updated")
@@ -367,6 +375,7 @@ def edit_post(post_id):
 @app.route('/users_posts/<int:user_id>', methods=['GET','POST'])
 @login_required
 def users_posts(user_id):
+    # gets ONLY the posts made by the current user
     theme = request.cookies.get('theme')
     users_posts = models.Posts.query.filter(models.Posts.user_id == user_id).all()
 
@@ -402,6 +411,8 @@ def users_posts(user_id):
 @app.route('/vote', methods=['POST'])
 @login_required
 def vote():
+    
+    # this is the AJAX section for upvoting posts - ajax ends to this URL for responses
     data = json.loads(request.data)
     post_id = int(data.get('post_id'))
     print("Post ID = ", post_id)
@@ -467,9 +478,11 @@ def profile(user_id):
 @app.route('/hashtag-profile/<string:hashtag_name>', methods=['GET', 'POST'])
 @login_required
 def hashtag_profile(hashtag_name):
+    # gets the hashtag name and displays it as well as all the posts using that hashtag
     hashtag = hashtag_name 
     posts_with_hashtag = models.Posts.query.join(models.PostHashtag, models.Posts.post_id == models.PostHashtag.post_id).join(models.Hashtags, models.PostHashtag.hashtag_id == models.Hashtags.id).filter(models.Hashtags.name == hashtag_name).order_by(models.Posts.post_id.desc()).all()
 
+    # same reused function as many other views
     posts_dict = {}
     liked_posts={}
     for post in posts_with_hashtag:
